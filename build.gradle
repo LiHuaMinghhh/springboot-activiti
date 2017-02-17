@@ -1,0 +1,40 @@
+group 'example'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+ext {
+    springBootVersion = '1.5.1.RELEASE'
+    springLoadedVersion = '1.2.6.RELEASE'
+    activitiSpringBootBasicVersion = '5.22.0'
+    mysqlVersion = '5.1.38'
+    druidVersion = '1.0.26'
+}
+
+dependencies{
+    compile(
+            "org.springframework.boot:spring-boot-starter-web:$springBootVersion",
+            "org.springframework:springloaded:$springLoadedVersion",
+            "org.springframework.boot:spring-boot-starter-test:$springBootVersion",
+            "org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion",
+            "org.activiti:activiti-spring-boot-starter-basic:$activitiSpringBootBasicVersion",
+            "org.activiti:spring-boot-starter-rest-api:5.17.0",
+            "mysql:mysql-connector-java:$mysqlVersion",
+            "com.alibaba:druid:$druidVersion"
+    )
+}
+
+task createDir << {
+    sourceSets*.java.srcDirs*.each { it.mkdirs() }
+    sourceSets*.resources.srcDirs*.each { it.mkdirs() }
+}
